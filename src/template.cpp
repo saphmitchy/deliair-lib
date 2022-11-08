@@ -58,5 +58,3 @@ void rearrange(vector<T> &v) {
     sort(begin(v), end(v));
     v.erase(unique(begin(v), end(v)), end(v));
 }
-
-int main() {}
