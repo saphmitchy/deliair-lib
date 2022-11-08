@@ -14,9 +14,9 @@ struct UnionFind {
     int cnt;
     #endif
 
-    UnionFind(int n) : data(n, -1), n(n) {
+    UnionFind(int _n) : data(_n, -1), n(_n) {
         #if COMPLEX
-        cnt = n;
+        cnt = _n;
         #endif
     }
 
