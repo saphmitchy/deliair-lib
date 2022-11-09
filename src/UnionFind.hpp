@@ -2,6 +2,8 @@
 // 記述量軽減のため経路圧縮のみ実装
 // 元の個数などの情報が欲しければCOMPLEXに書かれているコードも書く
 
+#pragma once
+
 #include "template.hpp"
 
 struct UnionFind {
