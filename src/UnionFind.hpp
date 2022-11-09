@@ -2,7 +2,9 @@
 // 記述量軽減のため経路圧縮のみ実装
 // 元の個数などの情報が欲しければCOMPLEXに書かれているコードも書く
 
-#include "template.cpp"
+#pragma once
+
+#include "template.hpp"
 
 struct UnionFind {
     // 正のとき親のノードを、COMPLEXかつ負の時は集合の大きさを表す
