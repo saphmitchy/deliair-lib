@@ -1,5 +1,6 @@
 {
 "verify/example.test.cpp": "2022-11-13 17:14:38 +0900",
+"verify/lazysegmenttree.test.cpp": "2022-11-13 21:02:04 +0900",
 "verify/segmenttree.test.cpp": "2022-11-13 17:14:38 +0900",
 "verify/unionfind.test.cpp": "2022-11-13 17:14:38 +0900"
 }
