@@ -60,3 +60,11 @@ void rearrange(vector<T> &v) {
     sort(begin(v), end(v));
     v.erase(unique(begin(v), end(v)), end(v));
 }
+
+struct io_setup {
+    io_setup() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout << fixed << setprecision(15);
+    }
+} io_setup;
