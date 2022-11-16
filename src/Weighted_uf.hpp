@@ -1,41 +1,57 @@
 // 記述量軽減のため経路圧縮のみ実装。元の個数などの情報が欲しければCOMPLEXに書かれているコードも書く
 
 #pragma once
+
 #include "template.hpp"
 
-struct UnionFind {
-    vector<int> data; // 正のとき親のノードを、COMPLEXかつ負の時は集合の大きさを表す
+template<class T>
+struct Weighted_uf {
     const int n;
+    vector<int> data; // 正のとき親のノードを、COMPLEXかつ負の時は集合の大きさを表す
+    vector<T> ws; // (自分の重み) - (親の重み)
     #ifdef COMPLEX
     int cnt; // 全体の集合の数を表す
     #endif
 
-    UnionFind(int _n) : data(_n, -1), n(_n) {
+    Weighted_uf(int _n) : n(_n), data(n, -1), ws(n, 0) {
         #ifdef COMPLEX
-        cnt = _n;
+        cnt = n;
         #endif
+    }
+
+    // x を含む集合の代表元を返す
+    int root(int x) {
+        if(data[x] < 0) return x;
+        int par = root(data[x]);
+        ws[x] += ws[data[x]];
+        return data[x] = par;
     }
 
     int operator[](int i) { return root(i); }
 
-    // x を含む集合の代表元を返す
-    int root(int x) {
-        assert(0 <= x && x < n);
-        return data[x] < 0 ? x : data[x] = root(data[x]);
+    T weight(int x) {
+        root(x);
+        return ws[x];
     }
 
-    // x を含む集合とyを含む集合を合併する。mergeが起こるならtrueを返す。
-    bool unite(int x, int y) {
-        x = root(x);
-        y = root(y);
-        if(x == y) return false;
+
+    // weight(x) - weghit(y) = w;
+    // x, yが既に同じ集合に属しておりかる以前の情報と不整合が起こるならばfalseを、それ以外ならtrueを返す。
+    bool unite(int x, int y, T w) {
+        int a = root(x), b = root(y);
+        w -= ws[x], w += ws[y];
+        if(a == b) return w == 0;
         #ifdef COMPLEX
         --cnt;
-        data[x] += data[y];
+        data[b] += data[a];
         #endif
-        data[y] = x;
+        data[a] = b;
+        ws[a] = w;
         return true;
     }
+
+    // weight(x) - weghit(y)
+    T diff(int x, int y) { return weight(x) - weight(y); }
 
     // xとyが同じ集合に含まれているか調べる
     bool same(int x, int y) { return root(x) == root(y); }
@@ -52,11 +68,13 @@ struct UnionFind {
     }
 
     #ifdef COMPLEX
+    // 初期化する
     void clear() {
         cnt = n;
-        fill(begin(data), end(data), -1);
+        fill(all(data), -1);
+        fill(all(ws), 0);
     }
-    
+
     // xが含まれる集合の大きさを返す。
     int size(int x) { return -data[root(x)]; }
 
