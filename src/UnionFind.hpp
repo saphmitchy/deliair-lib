@@ -6,12 +6,12 @@
 struct UnionFind {
     vector<int> data; // 正のとき親のノードを、COMPLEXかつ負の時は集合の大きさを表す
     const int n;
-    #if COMPLEX
+    #ifdef COMPLEX
     int cnt; // 全体の集合の数を表す
     #endif
 
     UnionFind(int _n) : data(_n, -1), n(_n) {
-        #if COMPLEX
+        #ifdef COMPLEX
         cnt = _n;
         #endif
     }
@@ -28,8 +28,8 @@ struct UnionFind {
     bool unite(int x, int y) {
         x = root(x);
         y = root(y);
-        if(x == y) return true;
-        #if COMPLEX
+        if(x == y) return false;
+        #ifdef COMPLEX
         --cnt;
         data[x] += data[y];
         #endif
@@ -40,7 +40,7 @@ struct UnionFind {
     // xとyが同じ集合に含まれているか調べる
     bool same(int x, int y) { return root(x) == root(y); }
 
-    // below functions are optinal
+    // below functions are optional
 
     // 集合ごとにvectorに分けたものを返す。
     vector<vector<int>> groups() {
@@ -51,7 +51,7 @@ struct UnionFind {
         return res;
     }
 
-    #if COMPLEX
+    #ifdef COMPLEX
     void clear() {
         cnt = n;
         fill(begin(data), end(data), -1);

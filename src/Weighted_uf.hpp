@@ -9,12 +9,12 @@ struct Weighted_uf {
     const int n;
     vector<int> data; // 正のとき親のノードを、COMPLEXかつ負の時は集合の大きさを表す
     vector<T> ws; // (自分の重み) - (親の重み)
-    #if COMPLEX
+    #ifdef COMPLEX
     int cnt; // 全体の集合の数を表す
     #endif
 
     Weighted_uf(int _n) : n(_n), data(n, -1), ws(n, 0) {
-        #if COMPLEX
+        #ifdef COMPLEX
         cnt = n;
         #endif
     }
@@ -41,7 +41,7 @@ struct Weighted_uf {
         int a = root(x), b = root(y);
         w -= ws[x], w += ws[y];
         if(a == b) return w == 0;
-        #if COMPLEX
+        #ifdef COMPLEX
         --cnt;
         data[b] += data[a];
         #endif
@@ -67,7 +67,7 @@ struct Weighted_uf {
         return res;
     }
 
-    #if COMPLEX
+    #ifdef COMPLEX
     // 初期化する
     void clear() {
         cnt = n;
