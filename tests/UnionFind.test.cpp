@@ -1,4 +1,6 @@
-#define COMPLEX 1
+// uniteの返り値、size, count, groups をテストする
+
+#define COMPLEX
 
 #include "../src/UnionFind.hpp"
 
