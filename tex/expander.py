@@ -1,11 +1,13 @@
-import os, sys
+import os
+import sys
 from typing import List
 import argparse
 import urllib.request
 
-targetExt = [".cpp", ".hpp"]
-template = "./template.tex"
-outputFileName = "main.tex"
+targetExt = [".cpp", ".hpp"]  # target extensions
+template = "./template.tex"  # path to template file
+outputFileName = "main.tex"  # output filename
+
 
 def output(targetFile: str, outDir: str) -> str:
     '''
@@ -21,8 +23,9 @@ def output(targetFile: str, outDir: str) -> str:
         g.write("\\begin{lstlisting}\n")
         g.write(lines)
         g.write("\\end{lstlisting}\n")
-    
+
     return outTexFile
+
 
 def dfs(dirName: str, outDir: str, dorecursive: bool) -> List[str]:
     '''
@@ -39,6 +42,7 @@ def dfs(dirName: str, outDir: str, dorecursive: bool) -> List[str]:
                 outFiles.append(output(name, outDir))
     return outFiles
 
+
 def main(dirNames: List[str], output="out", recursive=False):
     # check if directories exits
     for d in dirNames:
@@ -49,7 +53,7 @@ def main(dirNames: List[str], output="out", recursive=False):
     # make outputfile
     if not os.path.exists(output):
         os.mkdir(output)
-    
+
     # search files
     outFiles = []
     for d in dirNames:
@@ -70,14 +74,16 @@ def main(dirNames: List[str], output="out", recursive=False):
             f.write("\\newpage\n")
         f.write("\\end{document}\n")
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("dirName", type=str, nargs="+",
                         help="target directory names")
     parser.add_argument("-o", "--output", default="./out", nargs=1,
-                        help="output directory name")
-    parser.add_argument("-r" , "--recursive", action="store_true",
-                        help="search recursively")
+                        metavar="outDir",
+                        help="output directory")
+    parser.add_argument("-r", "--recursive", action="store_true",
+                        help="search recursively flag")
     args = parser.parse_args()
 
     main(args.dirName, args.output, args.recursive)
