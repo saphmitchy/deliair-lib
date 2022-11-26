@@ -1,7 +1,7 @@
-import sys, os
+import os
 from typing import List
-import glob
 import argparse
+import urllib.request
 
 targetExt = [".cpp", ".hpp"]
 template = "./template.tex"
@@ -36,7 +36,11 @@ def main(dirNames, output="out", recursive=False):
     outFiles = []
     for d in dirNames:
         outFiles.extend(dfs(d, output))
-    
+
+    plistings = os.path.join(output, "plistings.sty")
+    urllib.request.urlretrieve("https://raw.githubusercontent.com/h-kitagawa/plistings/master/plistings.sty",
+                               plistings)
+
     with open(os.path.join(output, outputFileName), "w") as f:
         with open(template, "r") as g:
             f.write(g.read())
