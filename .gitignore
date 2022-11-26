@@ -10,3 +10,7 @@
 !*.hpp
 !*.cpp
 !*.sh
+!*.py
+!*.tex
+
+/tex/out/**
