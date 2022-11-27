@@ -1,10 +1,10 @@
 import os
-import sys
 from typing import List
 import argparse
 import urllib.request
+import logging
 
-targetExt = [".cpp", ".hpp"]  # target extensions
+targetExt = [".cpp", ".hpp", "sh"]  # target extensions
 template = "./template.tex"  # path to template file
 outputFileName = "main.tex"  # output filename
 
@@ -15,14 +15,18 @@ def output(targetFile: str, outDir: str) -> str:
     Return output filename.
     '''
     with open(targetFile, "r") as f:
+        logging.info(f"Open {targetFile}")
         lines = f.read()
     outTexFile = targetFile.replace(os.sep, "##") + ".tex"
     title = os.path.basename(targetFile).replace("_", "\\_")
-    with open(os.path.join(outDir, outTexFile), "w") as g:
+    outFile = os.path.join(outDir, outTexFile)
+    with open(outFile, "w") as g:
         g.write(f"\\section*{{{title}}}\n")
         g.write("\\begin{lstlisting}\n")
         g.write(lines)
         g.write("\\end{lstlisting}\n")
+        g.write("\\newpage\n")
+        logging.info(f"Write {outFile}")
 
     return outTexFile
 
@@ -44,15 +48,11 @@ def dfs(dirName: str, outDir: str, dorecursive: bool) -> List[str]:
 
 
 def main(dirNames: List[str], output="out", recursive=False):
-    # check if directories exits
-    for d in dirNames:
-        if not os.path.exists(d):
-            print(f"[Error] No such file or directory '{d}'", file=sys.stderr)
-            sys.exit(1)
 
     # make outputfile
     if not os.path.exists(output):
         os.mkdir(output)
+        logging.info(f"made {output}")
 
     # search files
     outFiles = []
@@ -63,6 +63,7 @@ def main(dirNames: List[str], output="out", recursive=False):
     plistings = os.path.join(output, "plistings.sty")
     urllib.request.urlretrieve("https://raw.githubusercontent.com/h-kitagawa/plistings/master/plistings.sty",
                                plistings)
+    logging.info("Download plistings.sty")
 
     # write main file
     with open(os.path.join(output, outputFileName), "w") as f:
@@ -71,19 +72,26 @@ def main(dirNames: List[str], output="out", recursive=False):
         f.write("\\begin{document}\n")
         for i in outFiles:
             f.write(f"\\input{{{i}}}\n")
-            f.write("\\newpage\n")
         f.write("\\end{document}\n")
+    logging.info(f"Write {os.path.join(output, outputFileName)}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("dirName", type=str, nargs="+",
                         help="target directory names")
-    parser.add_argument("-o", "--output", default="./out", nargs=1,
+    parser.add_argument("-o", "--output", default="out", nargs=1,
                         metavar="outDir",
                         help="output directory")
     parser.add_argument("-r", "--recursive", action="store_true",
                         help="search recursively flag")
+    parser.add_argument("-l", "--log", action="store_true",
+                        help="output log")
     args = parser.parse_args()
+
+    if args.log:
+        logging.basicConfig(
+            format='[%(levelname)s] %(asctime)s %(message)s', level=logging.INFO,
+            datefmt='%Y/%m/%d %I:%M:%S')
 
     main(args.dirName, args.output, args.recursive)
