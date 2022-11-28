@@ -4,8 +4,11 @@ import argparse
 import urllib.request
 import logging
 
-targetExt = [".cpp", ".hpp", "sh"]  # target extensions
-template = "./template.tex"  # path to template file
+targetExt = [".cpp", ".hpp", ".sh"]  # target extensions
+# path of the directory which has this file
+expanderDir = os.path.dirname(__file__)
+# path of template latex file
+template = os.path.join(expanderDir, "template.tex")
 outputFileName = "main.tex"  # output filename
 
 
@@ -80,7 +83,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("dirName", type=str, nargs="+",
                         help="target directory names")
-    parser.add_argument("-o", "--output", default="out", nargs=1,
+    parser.add_argument("-o", "--output", default=os.path.join(expanderDir, "out"), type=str,
                         metavar="outDir",
                         help="output directory")
     parser.add_argument("-r", "--recursive", action="store_true",
