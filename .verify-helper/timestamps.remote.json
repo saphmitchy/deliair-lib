@@ -1,12 +1,14 @@
 {
-"verify/RollingHash.test.cpp": "2022-11-29 01:45:42 +0900",
-"verify/comb.test.cpp": "2022-11-16 22:35:11 +0900",
-"verify/example.test.cpp": "2022-11-13 17:14:38 +0900",
-"verify/lazysegmenttree.test.cpp": "2022-11-13 21:02:04 +0900",
-"verify/modint.test.cpp": "2022-11-16 22:35:11 +0900",
-"verify/ntt.test.cpp": "2022-11-16 22:35:11 +0900",
-"verify/perm.test.cpp": "2022-11-16 22:35:11 +0900",
-"verify/segmenttree.test.cpp": "2022-11-13 17:14:38 +0900",
-"verify/unionfind.test.cpp": "2022-11-16 09:07:45 +0900",
-"verify/weighted_uf.test.cpp": "2022-11-16 09:07:45 +0900"
+"verify/RollingHash.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/comb.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/dijkstra.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/example.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/lazysegmenttree.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/modint.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/ntt.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/perm.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/scc.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/segmenttree.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/unionfind.test.cpp": "2022-11-29 21:40:53 +0900",
+"verify/weighted_uf.test.cpp": "2022-11-29 21:40:53 +0900"
 }
