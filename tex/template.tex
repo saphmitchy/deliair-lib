@@ -16,7 +16,6 @@
 \definecolor{Orenge}{rgb}{0.89,0.55,0}
 \definecolor{SkyBlue}{rgb}{0.28, 0.28, 0.95}
 \lstset{
-    language={C++},
     basicstyle={\ttfamily},
     identifierstyle={\small},
     commentstyle={\smallitshape},
@@ -25,7 +24,8 @@
     stringstyle={\small\ttfamily},
     frame={tb},
     breaklines=true,
-    columns=[l]{fullflexible},
+    columns=fixed,
+    basewidth=0.5em,
     numbers=left,
     xrightmargin=0zw,
     xleftmargin=3zw,
@@ -35,5 +35,6 @@
     lineskip=-0.5ex,
     keywordstyle={\color{SkyBlue}},
     commentstyle={\color{OliveGreen}},
-    stringstyle=\color{Orenge}
+    stringstyle=\color{Orenge},
+    keepspaces=true
 }

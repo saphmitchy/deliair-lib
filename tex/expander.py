@@ -4,12 +4,16 @@ import argparse
 import urllib.request
 import logging
 
-targetExt = [".cpp", ".hpp", "sh"]  # target extensions
-template = "./template.tex"  # path to template file
+targetExt = {".cpp": "C++", ".hpp": "C++",
+             ".sh": "bash", ".py": "Python"}  # target extensions
+# path of the directory which has this file
+expanderDir = os.path.dirname(__file__)
+# path of template latex file
+template = os.path.join(expanderDir, "template.tex")
 outputFileName = "main.tex"  # output filename
 
 
-def output(targetFile: str, outDir: str) -> str:
+def output(targetFile: str, outDir: str, lang: str) -> str:
     '''
     Recieve target file and copy to outDir.
     Return output filename.
@@ -22,7 +26,7 @@ def output(targetFile: str, outDir: str) -> str:
     outFile = os.path.join(outDir, outTexFile)
     with open(outFile, "w") as g:
         g.write(f"\\section*{{{title}}}\n")
-        g.write("\\begin{lstlisting}\n")
+        g.write(f"\\begin{{lstlisting}}[language={lang}]\n")
         g.write(lines)
         g.write("\\end{lstlisting}\n")
         g.write("\\newpage\n")
@@ -42,8 +46,9 @@ def dfs(dirName: str, outDir: str, dorecursive: bool) -> List[str]:
         if dorecursive and os.path.isdir(name):
             outFiles.extend(dfs(name, outDir,  dorecursive))
         else:
-            if os.path.splitext(dir)[1] in targetExt:
-                outFiles.append(output(name, outDir))
+            extension = os.path.splitext(dir)[1]
+            if extension in targetExt:
+                outFiles.append(output(name, outDir, targetExt[extension]))
     return outFiles
 
 
@@ -80,7 +85,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("dirName", type=str, nargs="+",
                         help="target directory names")
-    parser.add_argument("-o", "--output", default="out", nargs=1,
+    parser.add_argument("-o", "--output", default=os.path.join(expanderDir, "out"), type=str,
                         metavar="outDir",
                         help="output directory")
     parser.add_argument("-r", "--recursive", action="store_true",
