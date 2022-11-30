@@ -9,7 +9,7 @@ int main() {
     auto ps = p.size();
 
     rep(i,t.size() - ps + 1) {
-        if(h1 == rh1.get_hash(i, i + ps)) {
+        if(eq(h1, rh1.get_hash(i, i + ps))) {
             cout << i << endl;
         }
     }
