@@ -3,16 +3,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define rep(i,n) for(int i = 0; i < int(n); i++)
-#define per(i,n) for(int i = (n) - 1; 0 <= i; i--)
-#define rep2(i,l,r) for(int i = (l); i < int(r); i++)
-#define per2(i,l,r) for(int i = (r) - 1; int(l) <= i; i--)
+#define rep(i, n) for (int i = 0; i < int(n); i++)
+#define per(i, n) for (int i = (n)-1; 0 <= i; i--)
+#define rep2(i, l, r) for (int i = (l); i < int(r); i++)
+#define per2(i, l, r) for (int i = (r)-1; int(l) <= i; i--)
 #define MM << " " <<
 #define pb push_back
 #define eb emplace_back
 #define all(x) begin(x), end(x)
 #define rall(x) rbegin(x), rend(x)
 #define sz(x) (int)x.size()
+#define each(e, x) for (auto &e : x)
 
 template <typename T>
 void print(const vector<T> &v, T x = 0) {
