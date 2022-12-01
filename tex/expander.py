@@ -3,6 +3,7 @@ from typing import List
 import argparse
 import urllib.request
 import logging
+import bz2
 
 targetExt = {".cpp": "C++", ".hpp": "C++",
              ".sh": "bash", ".py": "Python"}  # target extensions
@@ -64,11 +65,11 @@ def main(dirNames: List[str], output="out", recursive=False):
     for d in dirNames:
         outFiles.extend(dfs(d, output, recursive))
 
-    # download plistings package
-    plistings = os.path.join(output, "plistings.sty")
-    urllib.request.urlretrieve("https://raw.githubusercontent.com/h-kitagawa/plistings/master/plistings.sty",
-                               plistings)
-    logging.info("Download plistings.sty")
+    # download jlisting package
+    jlistingPath = os.path.join(output, "jlisting.sty")
+    with open(jlistingPath, 'w') as f:
+        with urllib.request.urlopen("https://ymu.dl.osdn.jp/mytexpert/26068/jlisting.sty.bz2") as ur:
+            f.write(bz2.decompress(ur.read()).decode("utf-8"))
 
     # write main file
     with open(os.path.join(output, outputFileName), "w") as f:
