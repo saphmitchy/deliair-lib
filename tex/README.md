@@ -15,8 +15,8 @@ $ python expander.py -r ../src
 もしオンラインでコンパイルするときは出力ディレクトリ内のファイルをまとめてアップロードしてください。
 
 ## 依存しているパッケージ
-日本語対応のため[plistings](https://github.com/h-kitagawa/plistings)パッケージを利用しています。
-直接 https://raw.githubusercontent.com/h-kitagawa/plistings/master/plistings.sty からダウンロードしているので特にセッティングは必要ありません。（TODO リポジトリをpublicにする前にライセンスの表示）
+日本語対応のため[jlisting](https://ja.osdn.net/projects/mytexpert/downloads/26068/jlisting.sty.bz2)パッケージを利用しています。
+https://ymu.dl.osdn.jp/mytexpert/26068/jlisting.sty.bz2 からダウンロードしているので特にセッティングは必要ありません
 
 ## オプション
 
