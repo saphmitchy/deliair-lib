@@ -61,7 +61,7 @@ struct MaxFlow {
     ll mf(int s, int t) {
         ll flow = 0;
         while (bfs(s, t)) {
-            fill(all(pos), -1);
+            fill(all(pos), 0);
             ll f = 0;
             while ((f = dfs(s, t, INF)) > 0) flow += f;
         }
