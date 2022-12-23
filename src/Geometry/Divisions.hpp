@@ -1,4 +1,5 @@
 // O(N^2log(N))
+// 時計回りに格納されているので注意
 
 #define re(x) real(x)
 #define im(x) imag(x)
@@ -150,23 +151,17 @@ vector<VP> divisions(vector<L> lf, R lim = 1e9) {
     rep(i, m) {
         rep2(j, i + 1, m) {
             each(p, crosspoint(ls[i], ls[j])) {
-                lp[i].eb(sz(ps)), lp[j].eb(sz(ps));
-                ps.eb(p);
+                if (max(abs(re(p)), abs(im(p))) < lim + EPS) {
+                    lp[i].eb(sz(ps)), lp[j].eb(sz(ps));
+                    ps.eb(p);
+                }
             }
         }
     }
     int n = sz(ps);
-    struct E {
-        int to, no;
-        R g, rg;
-        E(int to, int no, R g, R rg) : to(to), no(no), g(g), rg(rg) {}
-        bool operator<(E e) const {
-            return g < e.g;
-        }
-    };
-    vector<int> id(n, -1);
-    vector<vector<E>> li(n);
-    int cnt = 0;
+    vector<int> id(n, -1), to;
+    vector<R> rg;
+    vector<vector<pair<R, int>>> li(n);
     rep(i, m) {
         sort(all(lp[i]), [&ps](int a, int b) { return cp_x(ps[a], ps[b]); });
         vector<int> q;
@@ -187,31 +182,45 @@ vector<VP> divisions(vector<L> lf, R lim = 1e9) {
             q.eb(me);
         }
         rep(i, sz(q) - 1) {
-            auto d = ps[q[i + 1]] - ps[q[i]];
-            R g = atan2(im(d), re(d)), rg = atan2(-im(d), -re(d));
-            li[q[i]].eb(q[i + 1], cnt, g, rg);
-            li[q[i]].eb(q[i + 1], cnt++, g + pi * 2, rg);
-            li[q[i + 1]].eb(q[i], cnt, rg, g);
-            li[q[i + 1]].eb(q[i], cnt++, rg + pi * 2, g);
+            P d = ps[q[i + 1]] - ps[q[i]];
+            R s = atan2(im(d), re(d)), t = atan2(-im(d), -re(d));
+            int x = q[i], y = q[i + 1];
+            li[x].eb(s, sz(to));
+            li[x].eb(s + pi * 2, sz(to));
+            to.eb(y), rg.eb(t);
+            li[y].eb(t, sz(to));
+            li[y].eb(t + pi * 2, sz(to));
+            to.eb(x), rg.eb(s);
         }
     }
     rep(i, n) sort(all(li[i]));
-    vector<bool> u(cnt, false);
+    vector<bool> u(sz(to), false);
     vector<VP> ret;
     rep(i, n) {
         each(l, li[i]) {
-            if (u[l.no])
+            int ns = l.second;
+            if (u[ns])
                 continue;
             VP nv;
-            auto nl = l;
+            int no = ns;
+            bool ok = true;
             while (1) {
-                nv.eb(ps[nl.to]);
-                u[nl.no] = true;
-                nl = *(upper_bound(all(li[nl.to]), E(-1, -1, nl.rg + EPS, -1)));
-                if (nl.no == l.no)
+                if (sz(nv) > 1) {
+                    P x = nv[sz(nv) - 2], y = nv[sz(nv) - 1], z = ps[to[no]];
+                    int c = ccw(x, y, z);
+                    if (c == 1)
+                        ok = false;
+                    if (c != -1)
+                        nv.pop_back();
+                }
+                nv.eb(ps[to[no]]);
+                u[no] = true;
+                no = upper_bound(all(li[to[no]]), pair(rg[no] + EPS, -1))->second;
+                if (no == ns)
                     break;
             }
-            ret.eb(nv);
+            if (ok)
+                ret.eb(nv);
         }
     }
     return ret;
