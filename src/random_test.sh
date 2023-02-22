@@ -10,11 +10,11 @@ while true; do
         echo =======================
         echo your code
         echo -----------------------
-        echo $rs1 # 本質
+        echo "$rs1" # 本質
         echo =======================
         echo guchoku
         echo -----------------------
-        echo $rs2 # 本質
+        echo "$rs2" # 本質
         break 1 # 本質
     fi
 done
