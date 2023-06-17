@@ -16,13 +16,12 @@ jobs:
           python expander.py -l -r ../src
 
       - name: Compile Tex File
-        uses: dante-ev/latex-action@latest
+        uses: xu-cheng/latex-action@v2
         with:
-          working_directory: ${{github.workspace}}/tex/out/
-          root_file: main.tex
+          root_file: ${{github.workspace}}/tex/out/main.tex
       
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: coverage
-          path: ${{github.workspace}}/tex/out/main.pdf
+          name: Library
+          path: main.pdf
