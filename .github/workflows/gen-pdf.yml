@@ -12,13 +12,14 @@ jobs:
 
       - name: Generate LaTex Files
         run: |
-          cd ${{github.workspace}}/tex
+          cd tex
           python expander.py -l -r ../src
 
       - name: Compile Tex File
         uses: xu-cheng/latex-action@v2
         with:
           root_file: tex/out/main.tex
+          args: -pdf -pdfdvi -latex=uplatex -file-line-error -halt-on-error -interaction=nonstopmode
       
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
