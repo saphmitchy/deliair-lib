@@ -72,5 +72,3 @@ struct io_setup {
 
 // const ll MOD = 1'000'000'007;
 const ll MOD = 998'244'353;
-
-int main() {}
