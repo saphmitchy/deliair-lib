@@ -14,12 +14,17 @@ jobs:
         run: |
           cd ${{github.workspace}}/tex
           python expander.py -l -r ../src
+      
+      - name: Check Files
+        run: |
+          cd ${{github.workspace}}/tex
+          ls -la
 
-      - name: Compile Tex File
-        uses: dante-ev/latex-action@latest
-        with:
-          working_directory: ${{github.workspace}}/tex/out
-          root_file: main.tex
+#       - name: Compile Tex File
+#         uses: dante-ev/latex-action@latest
+#         with:
+#           working_directory: ${{github.workspace}}/tex/out
+#           root_file: main.tex
       
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
