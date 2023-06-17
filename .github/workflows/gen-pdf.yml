@@ -13,7 +13,7 @@ jobs:
       - name: Generate LaTex Files
         run: |
           cd ${{github.workspace}}/tex
-          python expander.py -r ../src
+          python expander.py -l -r ../src
 
       - name: Compile Tex File
         uses: dante-ev/latex-action@latest
