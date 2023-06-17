@@ -1,0 +1,28 @@
+name: generate PDF
+
+on: workflow_dispatch
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Git
+        uses: actions/checkout@v3
+
+      - name: Generate LaTex Files
+        run: |
+          cd ${{github.workspace}}/tex
+          python expander.py -r ../src
+
+      - name: Compile Tex File
+        uses: dante-ev/latex-action@latest
+        with:
+          working_directory: ${{github.workspace}}/tex/out
+          root_file: main.tex
+      
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ${{github.workspace}}/tex/out/main.pdf
