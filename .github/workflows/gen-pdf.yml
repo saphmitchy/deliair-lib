@@ -18,11 +18,12 @@ jobs:
       - name: Compile Tex File
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: tex/out/main.tex
+          working_directory: tex/out
+          root_file: main.tex
           args: -pdf -pdfdvi -latex=uplatex -file-line-error -halt-on-error -interaction=nonstopmode
       
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Library
-          path: main.pdf
+          path: tex/out/main.pdf
