@@ -21,9 +21,9 @@ struct SegmentTree {
     SegmentTree(int m, T x, F f, T e) : SegmentTree(vector<T>(m, x), f, e) {}
 
     // update : true なら data[i] <- x, false なら data[i] <- f(data[i], x)
-    void change(int i, T x, bool update = true) {
+    void update(int i, T x, bool apply = false) {
         i += n;
-        data[i] = (update ? x : f(data[i], x));
+        data[i] = (apply ? f(data[i], x) : x);
         while (i > 1) {
             i /= 2;
             data[i] = f(data[2 * i], data[2 * i + 1]);

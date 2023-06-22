@@ -21,7 +21,7 @@ int main() {
             int i;
             pll q;
             cin >> i >> q.first >> q.second;
-            seg.change(i, q);
+            seg.update(i, q);
         } else {
             int l, r;
             ll x;
