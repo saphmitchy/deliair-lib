@@ -1,0 +1,30 @@
+name: generate PDF
+
+on: workflow_dispatch
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Git
+        uses: actions/checkout@v3
+
+      - name: Generate LaTex Files
+        run: |
+          cd tex
+          python expander.py -l -r ../src
+          cp .latexmkrc out
+
+      - name: Compile Tex File
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: tex/out
+          root_file: main.tex
+          args: -pdfdvi
+      
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Library
+          path: tex/out/main.pdf
