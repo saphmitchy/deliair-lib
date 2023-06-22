@@ -1,3 +1,6 @@
+#pragma once
+#include "template.hpp"
+
 using ull = unsigned long long;
 const ull mod = (1LL << 61) - 1;
 
