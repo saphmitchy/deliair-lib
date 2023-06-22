@@ -99,7 +99,6 @@ int main() {
     rep(i, n - 1) {
         int u, v;
         cin >> u >> v;
-        u--, v--;
         es[u].eb(v), es[v].eb(u);
     }
 
@@ -107,12 +106,39 @@ int main() {
 
     vector<ll> ans(n, 0);
 
-    auto rec = [&](int now, auto &&rec) -> void {
+    auto dfs = [&](auto &&dfs, int now, int pre, int d, vector<ll> &v) -> void {
+        if (sz(v) <= d) v.push_back(0);
+        v[d]++;
+        each(e, G.es[now]) {
+            if (e == pre || G.used[e]) continue;
+            dfs(dfs, e, now, d + 1, v);
+        }
+    };
+
+    auto decompose = [&](auto &&decompose, int now) -> void {
         int c = G.centroid(now);
         G.used[c] = true;
         vector<ll> s = {0};
-        each(e, es[c]) {
-            
+        each(e, G.es[c]) {
+            if(G.used[e]) continue;
+            vector<ll> v = {0};
+            dfs(dfs, e, c, 1, v);
+            rep(i, sz(v)) {
+                ans[i] += v[i] * 2;
+                if (sz(s) <= i) s.eb(0);
+                s[i] += v[i];
+            }
+            v = FFT::convolve(v, v);
+            rep(i, min(sz(v), n)) ans[i] -= v[i];
+        }
+        s = FFT::convolve(s, s);
+        rep(i, min(sz(s), n)) ans[i] += s[i];
+        each(e, G.es[c]) {
+            if (!G.used[e]) decompose(decompose, e);
         }
     };
+
+    decompose(decompose, 0);
+
+    for (int i = 1; i < n; i++) cout << ans[i] / 2 << (i == n - 1 ? '\n' : ' ');
 }
