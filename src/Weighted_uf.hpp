@@ -1,7 +1,6 @@
 // 記述量軽減のため経路圧縮のみ実装。元の個数などの情報が欲しければCOMPLEXに書かれているコードも書く
 
 #pragma once
-
 #include "template.hpp"
 
 template<class T>
@@ -35,8 +34,7 @@ struct Weighted_uf {
     }
 
 
-    // weight(x) - weghit(y) = w;
-    // x, yが既に同じ集合に属しておりかる以前の情報と不整合が起こるならばfalseを、それ以外ならtrueを返す。
+    // weight(x) - weghit(y) = w
     bool unite(int x, int y, T w) {
         int a = root(x), b = root(y);
         w -= ws[x], w += ws[y];

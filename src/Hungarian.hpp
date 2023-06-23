@@ -1,7 +1,7 @@
 #pragma once
 #include "template.hpp"
 
-// n×m 行列 a が与えられたときに、Σ[i=0,...,n-1] a[i][p[i]] を最小化するような配列 p を求める (p の要素は相異なる)
+// n*m 行列 a が与えられたときに、Σ[i=0,...,n-1] a[i][p[i]] を最小化するような配列 p を求める (p の要素は相異なる)
 
 pair<ll, vector<int>> hungarian(vector<vector<ll>> a) {
     ll INF = 1LL << 60;

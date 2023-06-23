@@ -4,7 +4,7 @@ while true; do
     rs1=`./main < $test` # コードを実行1
     rs2=`./guchoku< $test` # コードを実行2
     if [[ $rs1 != $rs2 ]]; then
-        echo testcase #無くてもいい
+        echo testcase # 無くてもいい
         echo -----------------------
         cat $test
         echo =======================
