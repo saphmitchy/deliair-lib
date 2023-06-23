@@ -12,6 +12,7 @@
 "verify/modint.test.cpp": "2023-06-17 11:54:30 +0900",
 "verify/ntt.test.cpp": "2023-06-17 11:54:30 +0900",
 "verify/perm.test.cpp": "2023-06-17 11:54:30 +0900",
+"verify/rerooting.test.cpp": "2023-06-22 20:51:03 +0900",
 "verify/rollinghash.test.cpp": "2023-06-17 12:37:52 +0900",
 "verify/rollinghash_ull.test.cpp": "2023-06-22 18:26:15 +0900",
 "verify/scc.test.cpp": "2023-06-17 11:54:30 +0900",
