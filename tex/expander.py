@@ -42,7 +42,7 @@ def dfs(dirName: str, outDir: str, dorecursive: bool) -> List[str]:
     Return list of output filenames
     '''
     outFiles = []
-    for dir in os.listdir(dirName):
+    for dir in sorted(os.listdir(dirName)):
         name = os.path.join(dirName, dir)
         if dorecursive and os.path.isdir(name):
             outFiles.extend(dfs(name, outDir,  dorecursive))
