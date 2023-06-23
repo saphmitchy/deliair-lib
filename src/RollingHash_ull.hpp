@@ -23,7 +23,8 @@ struct RollingHash {
     const ull b; // 基数
     vector<ull> h, p;
 
-    RollingHash(const T &s, ull b = 887'446'835'055'281'585) : n(sz(s)), b(b) {
+    //                          b = 887'446'835'055'281'585
+    RollingHash(const T &s, ull b = 887446835055281585) : n(sz(s)), b(b) {
         h.assign(n + 1, 0), p.assign(n + 1, 1);
         rep(i, n) {
             p[i + 1] = h_mul(p[i], b);
