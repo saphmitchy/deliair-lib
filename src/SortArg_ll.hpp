@@ -1,3 +1,6 @@
+#pragma once
+#include "template.hpp"
+
 // 点を arctan で偏角 ((-π,π] の範囲で) ソートする。
 // ただし、(0,0) の偏角は 0 とする。
 

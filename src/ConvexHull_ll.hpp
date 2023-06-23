@@ -1,3 +1,6 @@
+#pragma once
+#include "template.hpp"
+
 vector<pll> convex_hull_ll(vector<pll> p) {
     rearrange(p);
     int n = sz(p), k = 0;

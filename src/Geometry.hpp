@@ -1,3 +1,6 @@
+#pragma once
+#include "template.hpp"
+
 // 型名
 // R:Real, P:Point, L:Line, S:Segment, C:Circle, VP:vector<Point>
 

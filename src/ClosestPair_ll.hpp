@@ -1,3 +1,6 @@
+#pragma once
+#include "template.hpp"
+
 // 距離の 2 乗を求める
 
 ll closest_pair_ll(vector<pll> p) {
