@@ -1,5 +1,5 @@
-SOURCE=$1.cpp
-OUTFILE=$1.out
-TEST=test.txt
+S=$1.cpp
+O=$1.out
+T=input.txt
 
-g++ $SOURCE -Wall -Wextra -g -O0 -fsanitize=undefined,address -o $OUTFILE && ./$OUTFILE < $TEST
+g++ -std=c++17 $S -Wall -g -O0 -o $O && ./$O < $T
