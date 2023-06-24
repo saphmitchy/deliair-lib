@@ -1,6 +1,6 @@
-SOURCE=$1.cpp
-OUTFILE=$1.out
-INPUT=$1.in
-ANSWER=$1.ans
+S=$1.cpp
+O=$1.out
+I=$1
+A=$1_ans.txt
 
-g++ $SOURCE -Wall -Wextra -O2 -o $OUTFILE && ./$OUTFILE < $INPUT > $ANSWER
+g++ -std=c++17 $S -Wall -O2 -o $O && ./$O < $I > $A
