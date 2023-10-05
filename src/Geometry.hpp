@@ -253,7 +253,7 @@ VP crosspoint(C c1, C c2) {
     R a = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));
     R t = atan2(im(c2.p) - im(c1.p), re(c2.p) - re(c1.p));
     VP ret;
-    if (!inter(c1, c2))
+    if (inter(c1, c2) % 4 == 0) // 交わらないとき
         return ret;
     if (eq(a, 0.0)) {
         ret.eb(P(c1.p + rot(P(c1.r, 0.0), t)));
