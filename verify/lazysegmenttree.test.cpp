@@ -24,7 +24,7 @@ int main() {
         if (t == 0) {
             ll a, b;
             cin >> a >> b;
-            seg.apply(l, r, pll(a, b));
+            seg.update(l, r, pll(a, b));
         } else {
             cout << seg.query(l, r).first << '\n';
         }
