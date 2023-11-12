@@ -1,7 +1,6 @@
 {
 "verify/bipartitematching.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/centroidecomposition.test.cpp": "2023-11-12 00:07:25 +0900",
-"verify/comb.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/dijkstra.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/example.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/hungarian.test.cpp": "2023-11-12 00:07:25 +0900",
@@ -9,9 +8,6 @@
 "verify/lcparray.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/maxflow.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/mincostflow.test.cpp": "2023-11-12 00:07:25 +0900",
-"verify/modint.test.cpp": "2023-11-12 00:07:25 +0900",
-"verify/ntt.test.cpp": "2023-11-12 00:07:25 +0900",
-"verify/perm.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/rerooting.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/rollinghash.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/rollinghash_ull.test.cpp": "2023-11-12 00:07:25 +0900",
