@@ -60,7 +60,7 @@ struct modint {
         return ret;
     }
 
-    modint inv() { return pow(mod - 2); }
+    modint inverse() { return pow(mod - 2); }
 
     friend ostream &operator<<(ostream &os, modint p) { return os << p.x; }
 
