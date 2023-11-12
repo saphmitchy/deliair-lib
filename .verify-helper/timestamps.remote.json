@@ -8,6 +8,7 @@
 "verify/lcparray.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/maxflow.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/mincostflow.test.cpp": "2023-11-12 00:07:25 +0900",
+"verify/modint.test.cpp": "2023-11-12 16:54:05 +0900",
 "verify/rerooting.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/rollinghash.test.cpp": "2023-11-12 00:07:25 +0900",
 "verify/rollinghash_ull.test.cpp": "2023-11-12 00:07:25 +0900",
