@@ -39,4 +39,50 @@ struct SegmentTree {
     }
 
     T operator[](int i) { return data[i]; }
+
+    // comp(query[l,r]) = true となるような最小の r (存在しなければ n(2 べき))
+    template <typename C>
+    int find_first(int l, C comp, T &x, int k = 1, int L = 0, int R = -1) {
+        if (R == -1) R = n;
+        if (R <= l) return n;
+        if (l <= L) {
+            if (!comp(f(x, data[k]))) {
+                x = f(x, data[k]);
+                return n;
+            }
+            if (R - L == 1) return L;
+        }
+        int M = (L + R) / 2;
+        int r = find_first(l, comp, x, 2 * k, L, M);
+        return (r == n ? find_first(l, comp, x, 2 * k + 1, M, R) : r);
+    }
+
+    template <typename C>
+    int find_first(int l, C comp) {
+        T x = e;
+        return find_first(l, comp, x);
+    }
+
+    // comp(query[l,r)) = true となるような最大の r (存在しなければ -1)
+    template <typename C>
+    int find_last(int r, C comp, T &x, int k = 1, int L = 0, int R = -1) {
+        if (R == -1) R = n;
+        if (r <= L) return -1;
+        if (R <= r) {
+            if (!comp(f(data[k], x))) {
+                x = f(data[k], x);
+                return -1;
+            }
+            if (R - L == 1) return L;
+        }
+        int M = (L + R) / 2;
+        int l = find_last(r, comp, x, 2 * k + 1, M, R);
+        return (l == -1 ? find_last(r, comp, x, 2 * k, L, M) : l);
+    }
+
+    template <typename C>
+    int find_last(int r, C comp) {
+        T x = e;
+        return find_last(r, comp, x);
+    }
 };
