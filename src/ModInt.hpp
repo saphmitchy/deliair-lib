@@ -1,9 +1,9 @@
 #pragma once
 #include "template.hpp"
 
-template <ll mod>
+template <int mod>
 struct modint {
-    ll x;
+    int x;
 
     modint() : x(0) {}
 
@@ -12,24 +12,22 @@ struct modint {
         if (x < 0) x += mod;
     }
 
-    // NTT を使うときに必要
-    static ll get_mod() { return mod; }
+    static int get_mod() { return mod; }
 
     modint &operator+=(modint p) {
         x += p.x;
-        x %= mod;
+        if (x >= mod) x -= mod;
         return *this;
     }
 
     modint &operator-=(modint p) {
-        x += mod - p.x;
-        x %= mod;
+        x -= p.x;
+        if (x < 0) x += mod;
         return *this;
     }
 
     modint &operator*=(modint p) {
-        x *= p.x;
-        x %= mod;
+        x = (1LL * x * p.x) % mod;
         return *this;
     }
 
@@ -39,25 +37,30 @@ struct modint {
     }
 
     modint operator-() { return modint(-x); }
-    modint operator+(modint p) const { return modint(*this) += p; } // const つけないと print で使えないという罠
+
+    modint operator+(modint p) { return modint(*this) += p; }
+
     modint operator-(modint p) { return modint(*this) -= p; }
+
     modint operator*(modint p) { return modint(*this) *= p; }
+
     modint operator/(modint p) { return modint(*this) /= p; }
+
     bool operator==(modint p) { return x == p.x; }
+
     bool operator!=(modint p) { return x != p.x; }
 
     modint pow(ll k) {
-        modint now = *this, ret = 1;
-        for (; k > 0; k >>= 1, now *= now) {
-            if (k & 1) ret *= now;
+        modint ret = 1, x = *this;
+        while (k > 0) {
+            if (k & 1) ret *= x;
+            x *= x;
+            k >>= 1;
         }
         return ret;
     }
 
-    modint inverse() {
-        assert(x != 0);
-        return pow(mod - 2);
-    }
+    modint inv() { return pow(mod - 2); }
 
     friend ostream &operator<<(ostream &os, modint p) { return os << p.x; }
 
@@ -68,3 +71,5 @@ struct modint {
         return is;
     }
 };
+
+using mint = modint<998244353>;
