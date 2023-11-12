@@ -71,5 +71,3 @@ struct modint {
         return is;
     }
 };
-
-using mint = modint<998244353>;
