@@ -2,6 +2,7 @@
 #include "template.hpp"
 
 // 各頂点が含まれる強連結成分の番号を持つ配列を返す
+
 vector<int> scc(vector<vector<int>> es) {
     int n = sz(es);
     vector<vector<int>> rs(n);
@@ -10,25 +11,25 @@ vector<int> scc(vector<vector<int>> es) {
     vector<int> comp(n, -1);
     vector<int> vs;
 
-    auto dfs = [&](int i, auto &&dfs) -> void {
-        if (comp[i] != -1) return;
-        comp[i] = 1;
-        each(e, es[i]) dfs(e, dfs);
-        vs.eb(i);
+    auto dfs = [&](auto &&dfs, int now) -> void {
+        if (comp[now] != -1) return;
+        comp[now] = 1;
+        each(e, es[now]) dfs(dfs, e);
+        vs.eb(now);
     };
 
-    auto rdfs = [&](int i, int col, auto &&rdfs) -> void {
-        if (comp[i] != -1) return;
-        comp[i] = col;
-        each(e, rs[i]) rdfs(e, col, rdfs);
+    auto rdfs = [&](auto &&rdfs, int now, int col) -> void {
+        if (comp[now] != -1) return;
+        comp[now] = col;
+        each(e, rs[now]) rdfs(rdfs, e, col);
     };
 
-    rep(i, n) dfs(i, dfs);
+    rep(i, n) dfs(dfs, i);
     fill(all(comp), -1);
     reverse(all(vs));
     int cnt = 0;
     each(e, vs) {
-        if (comp[e] == -1) rdfs(e, cnt++, rdfs);
+        if (comp[e] == -1) rdfs(rdfs, e, cnt++);
     }
     return comp;
 }
