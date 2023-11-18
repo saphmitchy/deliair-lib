@@ -26,34 +26,34 @@ struct FFT {
     vector<ll> to_ll(vector<comp> a) {
         int n = sz(a);
         vector<ll> b(n);
-        rep(i, n) b[i] = a[i].real() + 0.1;
+        rep(i, n) b[i] = round(a[i].real());
         return b;
     }
 
     void fft(vector<comp> &a) {
         int n = sz(a);
-        for (int k = n; k >>= 1;) {
+        for (int k = n; k >>= 1;) { // ifft と違うとこ
             comp w = 1;
             for (int s = 0, t = 0; s < n; s += 2 * k) {
                 for (int i = s, j = s + k; i < s + k; i++, j++) {
-                    comp x = a[i], y = w * a[j];
-                    a[i] = x + y, a[j] = x - y;
+                    comp x = a[i], y = w * a[j]; // ifft と違うとこ
+                    a[i] = x + y, a[j] = x - y;  // ifft と違うとこ
                 }
-                w *= r[__builtin_ctz(++t)];
+                w *= r[__builtin_ctz(++t)]; // ifft と違うとこ
             }
         }
     }
 
     void ifft(vector<comp> &a) {
         int n = sz(a);
-        for (int k = 1; k < n; k <<= 1) {
+        for (int k = 1; k < n; k <<= 1) { // fft と違うとこ
             comp w = 1;
             for (int s = 0, t = 0; s < n; s += 2 * k) {
                 for (int i = s, j = s + k; i < s + k; i++, j++) {
-                    comp x = a[i], y = a[j];
-                    a[i] = x + y, a[j] = w * (x - y);
+                    comp x = a[i], y = a[j];          // fft と違うとこ
+                    a[i] = x + y, a[j] = w * (x - y); // fft と違うとこ
                 }
-                w *= ir[__builtin_ctz(++t)];
+                w *= ir[__builtin_ctz(++t)]; // fft と違うとこ
             }
         }
         rep(i, n) a[i] /= n;
