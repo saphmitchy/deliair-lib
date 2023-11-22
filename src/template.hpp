@@ -1,30 +1,20 @@
 #pragma once
 
-#include <bitset>
-#include <complex>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <stack>
-#include <unordered_map>
-#include <unordered_set>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-#define rep(i, n) for(int i = 0; i < (n); i++)
-#define per(i, n) for(int i = (n)-1; i >= 0; i--)
-#define rep2(i, l, r) for(int i = (l); i < (r); i++)
-#define per2(i, l, r) for(int i = (r)-1; i >= (l); i--)
-#define each(e, x) for(auto &e : x)
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define per(i, n) for (int i = (n)-1; i >= 0; i--)
+#define rep2(i, l, r) for (int i = (l); i < (r); i++)
+#define per2(i, l, r) for (int i = (r)-1; i >= (l); i--)
+#define each(e, x) for (auto &e : x)
 #define sz(x) (int)x.size()
 #define all(x) begin(x), end(x)
 #define rall(x) rbegin(x), rend(x)
 #define eb emplace_back
 #define MM << ' ' <<
-#define TT template<typename T>
+#define TT template <typename T>
 using ll = long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
