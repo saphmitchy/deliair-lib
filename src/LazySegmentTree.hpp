@@ -38,7 +38,7 @@ struct LazySegmentTree {
     T update(int l, int r, O x, int k = 1, int L = 0, int R = -1) {
         if (R == -1) R = n;
         // if の中身要注意！
-        if (l >= r || r <= L || R <= l) return get(k);
+        if (r <= L || R <= l) return get(k);
         if (l <= L && R <= r) {
             lazy[k] = h(lazy[k], x);
             return get(k);
@@ -51,7 +51,7 @@ struct LazySegmentTree {
     T query(int l, int r, int k = 1, int L = 0, int R = -1) {
         if (R == -1) R = n;
         // if の中身要注意！
-        if (l >= r || r <= L || R <= l) return e1;
+        if (r <= L || R <= l) return e1;
         if (l <= L && R <= r) return get(k);
         eval(k);
         int M = (L + R) / 2;
