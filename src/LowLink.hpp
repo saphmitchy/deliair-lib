@@ -10,7 +10,6 @@
 #pragma once
 #include "template.hpp"
 
-template <bool directed = false>
 struct Low_Link {
 
     vector<vector<pii>> es;
@@ -24,8 +23,7 @@ struct Low_Link {
 
     void add_edge(int from, int to) {
         es[from].eb(to, m);
-        if (!directed)
-            es[to].eb(from, m);
+        es[to].eb(from, m);
         m++;
     }
 
