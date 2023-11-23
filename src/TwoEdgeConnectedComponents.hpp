@@ -3,9 +3,8 @@
 
 #include "LowLink.hpp"
 
-template <bool directed = false>
-struct Two_Edge_Connected_Components : Low_Link<directed> {
-    using L = Low_Link<directed>;
+struct Two_Edge_Connected_Components : Low_Link {
+    using L = Low_Link;
     vector<int> c;
     const int n;
 
@@ -18,8 +17,7 @@ struct Two_Edge_Connected_Components : Low_Link<directed> {
             c[now] = k++;
         }
         for (auto &[to, id] : this->es[now]) {
-            if (c[to] == -1)
-                k = dfs(to, now, k);
+            if (c[to] == -1) k = dfs(to, now, k);
         }
         return k;
     }
@@ -30,8 +28,7 @@ struct Two_Edge_Connected_Components : Low_Link<directed> {
         fill(all(c), -1);
         int k = 0;
         rep(i, n) {
-            if (c[i] == -1)
-                k = dfs(i, -1, k);
+            if (c[i] == -1) k = dfs(i, -1, k);
         }
         vector<vector<int>> ret(k);
         vector<int> isb(this->m, 0);
@@ -40,8 +37,7 @@ struct Two_Edge_Connected_Components : Low_Link<directed> {
             for (auto &[to, id] : this->es[i]) {
                 if (isb[id]-- > 0) {
                     ret[c[i]].eb(c[to]);
-                    if (!directed)
-                        ret[c[to]].eb(c[i]);
+                    ret[c[to]].eb(c[i]);
                 }
             }
         }
@@ -49,7 +45,5 @@ struct Two_Edge_Connected_Components : Low_Link<directed> {
     }
 
     // 頂点iが属する連結成分の番号
-    int operator[](int i) const {
-        return c[i];
-    }
+    int operator[](int i) const { return c[i]; }
 };

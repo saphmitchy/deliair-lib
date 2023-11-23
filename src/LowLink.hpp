@@ -33,24 +33,19 @@ struct Low_Link {
         bool isa = false;
         int c = 0;
         for (auto &[to, id] : es[now]) {
-            if (id == p)
-                continue;
+            if (id == p) continue;
             if (!u[to]) {
                 c++;
                 k = dfs(to, id, k);
                 chmin(l[now], l[to]);
-                if (p != -1 && l[to] >= o[now])
-                    isa = true;
-                if (o[now] < l[to])
-                    bridge.eb(id);
+                if (p != -1 && l[to] >= o[now]) isa = true;
+                if (o[now] < l[to]) bridge.eb(id);
             } else {
                 chmin(l[now], o[to]);
             }
         }
-        if (p == -1 && c >= 2)
-            isa = true;
-        if (isa)
-            articulation.eb(now);
+        if (p == -1 && c >= 2) isa = true;
+        if (isa) articulation.eb(now);
         return k;
     }
 
@@ -58,8 +53,7 @@ struct Low_Link {
         fill(all(u), false);
         int k = 0;
         for (int i = 0; i < n; i++) {
-            if (!u[i])
-                k = dfs(i, -1, k);
+            if (!u[i]) k = dfs(i, -1, k);
         }
     }
 };
