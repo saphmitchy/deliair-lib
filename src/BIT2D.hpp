@@ -1,5 +1,6 @@
 #pragma once
 #include "template.hpp"
+#include "BIT.hpp"
 
 // C は座標の型
 template <typename T, typename C>
