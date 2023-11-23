@@ -18,6 +18,7 @@
 "verify/scc.test.cpp": "2023-11-23 00:08:18 +0900",
 "verify/segmenttree.test.cpp": "2023-11-23 00:08:18 +0900",
 "verify/suffixarray.test.cpp": "2023-11-23 00:08:18 +0900",
+"verify/twoedgeconnectedcomponents.test.cpp": "2023-11-23 09:53:34 +0900",
 "verify/unionfind.test.cpp": "2023-11-23 00:08:18 +0900",
 "verify/weighted_uf.test.cpp": "2023-11-23 00:08:18 +0900"
 }
