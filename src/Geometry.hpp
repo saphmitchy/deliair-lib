@@ -4,8 +4,8 @@
 // 型名
 // R:Real, P:Point, L:Line, S:Segment, C:Circle, VP:vector<Point>
 
-#define re(x) real(x)
-#define im(x) imag(x)
+#define X(p) real(p)
+#define Y(p) imag(p)
 
 using R = double;
 using P = complex<R>;
@@ -23,7 +23,7 @@ bool eq(R a, R b) {
 }
 
 P operator*(P p, R d) {
-    return P(re(p) * d, im(p) * d);
+    return P(X(p) * d, Y(p) * d);
 }
 
 P operator/(P p, R d) {
@@ -39,19 +39,19 @@ istream &operator>>(istream &is, P &p) {
 }
 
 ostream &operator<<(ostream &os, P p) {
-    return os << re(p) << ' ' << im(p);
+    return os << X(p) << ' ' << Y(p);
 }
 
 bool cp_x(P p, P q) {
-    if (!eq(re(p), re(q)))
-        return re(p) < re(q);
-    return im(p) < im(q);
+    if (!eq(X(p), X(q)))
+        return X(p) < X(q);
+    return Y(p) < Y(q);
 }
 
 bool cp_y(P p, P q) {
-    if (!eq(im(p), im(q)))
-        return im(p) < im(q);
-    return re(p) < re(q);
+    if (!eq(Y(p), Y(q)))
+        return Y(p) < Y(q);
+    return X(p) < X(q);
 }
 
 struct L {
@@ -85,11 +85,11 @@ P rot(P p, R t) {
 }
 
 R dot(P p, P q) {
-    return re(p) * re(q) + im(p) * im(q);
+    return X(p) * X(q) + Y(p) * Y(q);
 }
 
 R det(P p, P q) {
-    return re(p) * im(q) - im(p) * re(q);
+    return X(p) * Y(q) - Y(p) * X(q);
 }
 
 int ccw(P a, P b, P c) { // 線分 ab に対する c の位置関係
@@ -251,7 +251,7 @@ VP crosspoint(C c, L l) {
 VP crosspoint(C c1, C c2) {
     R d = abs(c1.p - c2.p);
     R a = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));
-    R t = atan2(im(c2.p) - im(c1.p), re(c2.p) - re(c1.p));
+    R t = atan2(Y(c2.p) - Y(c1.p), X(c2.p) - X(c1.p));
     VP ret;
     if (inter(c1, c2) % 4 == 0) // 交わらないとき
         return ret;
@@ -323,9 +323,9 @@ int in_polygon(VP p, P q) { // IN:2, ON:1, OUT:0
         P a = p[i] - q, b = p[(i + 1) % n] - q;
         if (eq(det(a, b), 0.0) && sgn(dot(a, b)) <= 0)
             return 1;
-        if (im(a) > im(b))
+        if (Y(a) > Y(b))
             swap(a, b);
-        if (sgn(im(a)) <= 0 && sgn(im(b)) == 1 && sgn(det(a, b)) == 1)
+        if (sgn(Y(a)) <= 0 && sgn(Y(b)) == 1 && sgn(det(a, b)) == 1)
             ret ^= 2;
     }
     return ret;
@@ -386,16 +386,16 @@ R closest_pair(VP p) { // 最近点対の距離
         if (r - l <= 1)
             return R(1e18);
         int m = (l + r) >> 1;
-        R x = re(p[m]);
+        R x = X(p[m]);
         R ret = min(rec(l, m), rec(m, r));
         inplace_merge(p.begin() + l, p.begin() + m, p.begin() + r, cp_y);
         int cnt = 0;
         rep2(i, l, r) {
-            if (abs(re(p[i]) - x) >= ret)
+            if (abs(X(p[i]) - x) >= ret)
                 continue;
             rep(j, cnt) {
                 P d = p[i] - memo[cnt - j - 1];
-                if (im(d) >= ret)
+                if (Y(d) >= ret)
                     break;
                 chmin(ret, abs(d));
             }
@@ -428,7 +428,7 @@ vector<VP> divisions(vector<L> lf, R lim = 1e9) {
     rep(i, m) {
         rep2(j, i + 1, m) {
             each(p, crosspoint(ls[i], ls[j])) {
-                if (max(abs(re(p)), abs(im(p))) < lim + EPS) {
+                if (max(abs(X(p)), abs(Y(p))) < lim + EPS) {
                     lp[i].eb(sz(ps)), lp[j].eb(sz(ps));
                     ps.eb(p);
                 }
@@ -460,7 +460,7 @@ vector<VP> divisions(vector<L> lf, R lim = 1e9) {
         }
         rep(i, sz(q) - 1) {
             P d = ps[q[i + 1]] - ps[q[i]];
-            R s = atan2(im(d), re(d)), t = atan2(-im(d), -re(d));
+            R s = atan2(Y(d), X(d)), t = atan2(-Y(d), -X(d));
             int x = q[i], y = q[i + 1];
             li[x].eb(s, sz(to));
             li[x].eb(s + pi * 2, sz(to));
