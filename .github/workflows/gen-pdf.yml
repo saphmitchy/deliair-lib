@@ -10,12 +10,14 @@ jobs:
       - name: Setup Git
         uses: actions/checkout@v3
 
+        # expander.pyでtex/outにtexファイルを生成する．.latexmkrcもコピーしておく．
       - name: Generate LaTex Files
         run: |
           cd tex
           python expander.py -l -r ../src
           cp .latexmkrc out
 
+        # texファイルからpdfを生成する．
       - name: Compile Tex File
         uses: xu-cheng/latex-action@v2
         with:
@@ -23,6 +25,7 @@ jobs:
           root_file: main.tex
           args: -pdfdvi
       
+        # pdfをArtifactsとして保存する．
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
