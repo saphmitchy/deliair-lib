@@ -5,13 +5,17 @@ import urllib.request
 import logging
 import bz2
 
-targetExt = {".cpp": "C++", ".hpp": "C++",
-             ".sh": "bash", ".py": "Python"}  # target extensions
+# target extensions
+targetExt = {".cpp": "C++",
+             ".hpp": "C++",
+             ".sh" : "bash",
+             ".py" : "Python"}
 # path of the directory which has this file
 expanderDir = os.path.dirname(__file__)
 # path of template latex file
 template = os.path.join(expanderDir, "template.tex")
-outputFileName = "main.tex"  # output filename
+# output filename
+outputFileName = "main.tex"
 
 
 def output(targetFile: str, outDir: str, lang: str) -> str:
@@ -26,11 +30,11 @@ def output(targetFile: str, outDir: str, lang: str) -> str:
     title = os.path.basename(targetFile).replace("_", "\\_")
     outFile = os.path.join(outDir, outTexFile)
     with open(outFile, "w") as g:
-        g.write(f"\\section*{{{title}}}\n")
-        g.write(f"\\begin{{lstlisting}}[language={lang}]\n")
-        g.write(lines)
-        g.write("\\end{lstlisting}\n")
-        g.write("\\newpage\n")
+        g.write(f"""\\section*{{{title}}}
+\\begin{{lstlisting}}[language={lang}]
+{lines}
+\\end{{lstlisting}}
+\\newpage\n""")
         logging.info(f"Write {outFile}")
 
     return outTexFile
